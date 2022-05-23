@@ -1,3 +1,58 @@
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = "https://hiraimam.ca/"
+languageCode = "en"
+title = "Hira Imam, MEd."
+theme = "hugo-initio"
+
+[params]
+    name = "Hira Imam"
+    description = "🧕🏽She/Her/Hers | ✊🏽South Asian | 🎓 MEd, RCC, CCC "
+    email = ""
+    phone = ""
+    address = ""
+    year = 2022
+    avatar = "images/hira/hira1.png"
+    avatarclass = "circle"
+    background = ""
+    banner = "images/hira/norway2.png"
+    favicon = "images/gt_favicon.png"
+    DateForm = "January 2, 2006"
+    author = "Hira Imam"
+
+    showSubheader = true
+    showServices = false
+    showRecentWorks = false
+    showDownloads = false
+    showClients = false
+
+    showFooterContact = true
+    showFooterFollowMe = true
+    showFooterTextWidget = false
+    showFooterFormWidget = false
+
+[[menu.main]]
+    name = "home"
+    url = "/"
+    weight = 1
+
+[params.sharethis]
+    property = "123456789012345678901234"
+    custom = true
+
+[params.google.analytics]
+    trackerID = "GA-000000000-0"
+
+[[params.social]]
+	title = "linkedin"
+	url = "https://www.linkedin.com/in/hira-imam-a91a5b1b5"
+    icon = "fab fa-linkedin"
+    footer = true
+    sharethis = true
+    network = "linkedin"
+
+[[params.social]]
+	title = "twitter"
+	url = "https://twitter.com/ImamHira"
+    icon = "fab fa-twitter-square"
+    footer = true
+    sharethis = true
+    network = "twitter"
