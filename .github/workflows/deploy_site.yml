@@ -1,0 +1,51 @@
+name: deploy_site
+
+# Only run this when the master branch changes
+on:
+  push:
+    branches:
+    - main
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true  # Fetch Hugo themes (true OR recursive)
+        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+    - uses: actions/setup-go@v2 
+      with:
+        go-version: ^1.15.6
+
+    # Install dependencies (setup Hugo)
+    - name: Install dependencies
+      uses: peaceiris/actions-hugo@v2
+      with:
+          hugo-version: 0.99.1
+          extended: true
+          
+    # Install dependencies
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.9
+          
+    - name: Build the site
+      run: hugo --minify
+        
+    # Push to server
+    - name: rsync and ssh
+      env:
+        REMOTE_HOST: coburg.dreamhost.com
+        REMOTE_USER: moosvi
+        REMOTE_KEY: ${{ secrets.REMOTE_KEY }}
+        REMOTE_DIR: hiraimam.ca
+        LOCAL_DIR: "public/"
+      run: |
+        mkdir ~/.ssh
+        echo "$REMOTE_KEY" > ~/.ssh/id_rsa
+        ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
+        chmod 600 ~/.ssh/id_rsa
+        rsync -avzr $LOCAL_DIR $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
