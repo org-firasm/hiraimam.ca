@@ -34,18 +34,21 @@ jobs:
           
     - name: Build the site
       run: hugo --minify
-        
+
     # Push to server
     - name: rsync and ssh
       env:
-        REMOTE_HOST: coburg.dreamhost.com
-        REMOTE_USER: moosvi
-        REMOTE_KEY: ${{ secrets.REMOTE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        REMOTE_KEY: ${{ secrets.SERVER_SSH_KEY }}
         REMOTE_DIR: hiraimam.ca
         LOCAL_DIR: "public/"
       run: |
         mkdir ~/.ssh
+        touch ~/.ssh/id_rsa
         echo "$REMOTE_KEY" > ~/.ssh/id_rsa
         ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
         chmod 600 ~/.ssh/id_rsa
-        rsync -avzr $LOCAL_DIR $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
+        pwd
+        ls -la
+        rsync -avzr --delete $LOCAL_DIR $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
