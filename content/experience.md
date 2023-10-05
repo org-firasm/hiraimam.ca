@@ -2,7 +2,7 @@
 menu = "main"
 title = "Experience"
 type = "about"
-weight = 10
+weight = 0
 +++
 
 My theoretical orientation is....

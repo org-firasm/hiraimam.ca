@@ -5,6 +5,6 @@ type = "about"
 weight = 10
 +++
 
-#### Masters in Education
+### Masters in Education
 
-#### Bachelor's in Science
+### Bachelor's in Science
